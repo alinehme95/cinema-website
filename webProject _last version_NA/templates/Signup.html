@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/static/css/login_style.css">
+</head>
+<body class="signup_pg">
+    <div class="box" id="box2">
+        <form method="POST">
+            <h1>Sign Up</h1>
+            <img src="" alt="">
+            <div class="inputBox">
+                <span class="color">Name</span>
+                <input type="text" name="name" required placeholder="Name">
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <span class="color">Username</span>
+                <input type="text" name="username" required placeholder="Username">
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <span class="color">Email</span>
+                <input type="email" name="email" required placeholder="Email">
+                <i></i>
+            </div>
+            <div class="rad_gen">
+                <label class="color">Gender: </label>
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female
+            </div>
+            <div class="inputBox">
+                <span class="color">DOB</span>
+                <input type="date" name="dob" required placeholder="Date of Birthday">
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <span class="color">Password</span>
+                <input type="password" name="password" required placeholder="Password">
+                <i></i>
+            </div>
+            <input class="signup" type="submit" value="Signup">
+            <a href="{{ url_for('login') }}" class="back">Back to Login</a>
+        </form>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

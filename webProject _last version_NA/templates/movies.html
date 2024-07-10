@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>all movies</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body class="all-movies">
+
+  <header>
+    <div class="navbar">
+      <div class="navbar-container">
+        <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="fas fa-bars "></i>
+            </label>
+        <div class="logo-container">
+          <h1 class="logo"><a href="{{ url_for('index') }}">Cinema</a></h1>
+        </div>
+        
+        <div class="menu-container">
+          <ul class="menu-list">
+            <li class="menu-list-item"><a href="{{ url_for('movies') }}">Movies</a></li>
+            <li class="menu-list-item"><a href="{{ url_for('menu') }}">Menu</a></li>
+          </ul>
+        </div>
+
+        <div class="navbar-search">
+          <form action="{{ url_for('search') }}" method="GET">
+            <input type="text" name="query" placeholder="Search..." />
+            <button type="submit"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+
+        <div class="profile-container">
+          <img class="profile-picture" src="/static/img/profile.jpg" alt="">
+          <div class="profile-text-container">
+            <select onchange="redirectTo(this)">
+              <option value="settings">{{ user.Uname }}</option>
+              <option value="{{ url_for('profile') }}">Profile</option>
+              <option value="{{ url_for('logout') }}">Log Out</option>
+            </select>
+
+          </div>
+          <div class="toggle">
+            <i class="fas fa-moon toggle-icon"></i>
+            <i class="fas fa-sun toggle-icon"></i>
+            <div class="toggle-ball"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="popup">
+      <h2>Add New Movie</h2>
+
+      <form id="movie-form" method="POST" action="{{ url_for('add_movie') }}">
+        <div class="center">
+          <div>
+            <label class="custom-file-upload" for="fileInput">Choose File:</label>
+            <input type="file" id="fileInput" name="fileInput" onchange="displayFileName(this)" />
+          </div>
+          <div></div>
+          <label for="movie-name">Movie Name:</label>
+          <input type="text" id="movie-name" name="movie-name" required />
+        </div>
+        <div>
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" name="start-date" required />
+        </div>
+        <div>
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date" name="end-date" required />
+        </div>
+        <div>
+          <label for="cinema-branch">Cinema Branch:</label>
+          <select id="cinema-branch" name="cinema-branch" required>
+            <option value="no_choice">No choice selected</option>
+            <option value="Beirut_Downtown">Beirut - Downtown</option>
+            <option value="Saida_Spot_Mall">Saida - Spot Mall</option>
+            <option value="Jbeil_Le_Mall">Jbeil - Le Mall</option>
+            <option value="Tripoli_Azmi_Street">Tripoli - Azmi Street</option>
+          </select>
+        </div>
+        <div>
+          <label for="movie-time">Movie Time:</label>
+          <input type="time" id="movie-time" name="movie-time" required />
+        </div>
+        <div>
+          <label for="room">Room:</label>
+          <input type="text" id="room" name="room" required />
+        </div>
+        <div>
+          <label for="duration">Duration (in minutes):</label>
+          <input type="number" id="duration" name="duration" required />
+        </div>
+        <div>
+          <label for="description">Description:</label>
+          <textarea id="myTextarea" name="description" rows="4" cols="50"
+            placeholder="Enter your text here..."></textarea>
+        </div>
+        <div>
+          <button type="submit">Save</button>
+          <button type="button" onclick="toggle()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="main">
+      {% if user.role == "Admin" %}
+      <section class="movies" id="movies">
+        <div class="buttons_movies">
+          <a id="add" class="add" href="#" onclick="toggle()">Add Movie</a>
+          <a id="edit" class="edit" href="#" onclick="toggleEditButtons()">Edit</a>
+        </div>
+        {% endif %}
+
+        <div class="movie-container">
+          {% for movies in new_releases %}
+          <div class="box">
+            <div class="box-img">
+              <img src="/static/img/{{ movies.fileInput }}" alt="{{ movies.movieName }}">
+            </div>
+            <h3>{{ movies.movieName }}</h3>
+            <span>{{ movies.duration }} min</span>
+            <button class="movie-list-item-button">
+              <a href="{{ url_for('book') }}">Book</a>
+            </button>
+            <div class="edit-delete-buttons" style="display: none">
+              <a href="{{ url_for('edit_movie', movie_id=movies.id) }}">
+                <i class="fas fa-pencil-alt green-icon_pen"></i>
+              </a>
+              <form id="delete-form-{{ movies.id }}" action="{{ url_for('delete_movie', movie_id=movies.id) }}"
+                method="post" style="display: inline">
+                <button type="submit"><i class="fas fa-trash-alt red-icon_trash"></i></button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="/static/js/script.js"></script>
+</body>
+
+</html>

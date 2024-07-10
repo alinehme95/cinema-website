@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food & Drinks</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+
+<body>
+
+
+    <header>
+        <div class="navbar">
+            <div class="navbar-container">
+                <div class="logo-container">
+                    <h1 class="logo"><a href="{{ url_for('index') }}">Cinema</a></h1>
+                </div>
+                <div class="menu-container">
+                    <ul class="menu-list">
+                        <li class="menu-list-item"><a href="{{ url_for('movies') }}">Movies</a></li>
+                        <li class="menu-list-item"><a href="{{ url_for('menu') }}">Menu</a></li>
+                    </ul>
+                </div>
+
+                <div class="navbar-search">
+                    <form action="{{ url_for('search') }}" method="GET">
+                        <input type="text" name="query" placeholder="Search..." />
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                      </form>
+                </div>
+
+                <div class="profile-container">
+                    <img class="profile-picture" src="/static/img/profile.jpg" alt="">
+                    <div class="profile-text-container">
+                        <select onchange="redirectTo(this)">
+                            <option value="settings">{{ user.Uname }}</option>
+                            <option value="{{ url_for('profile') }}">Profile</option>
+                            <option value="{{ url_for('logout') }}">Log Out</option>
+                        </select>
+
+                    </div>
+                    <div class="toggle">
+                        <i class="fas fa-moon toggle-icon"></i>
+                        <i class="fas fa-sun toggle-icon"></i>
+                        <div class="toggle-ball"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="food-menu">
+        <br>
+        <h2>Food Menu</h2><br>
+
+
+        <div class="menu-item">
+            <h3>Popcorn</h3>
+            <p>Classic cinema popcorn with butter.</p>
+            <span>$5.99</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Cheese Popcorn</h3>
+            <p>popcorn with butter and Cheese flavor.</p>
+            <span>$5.99</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Caramel Popcorn</h3>
+            <p> Sweet popcorn with butter and Caramel sauce and flavor.</p>
+            <span>$5.99</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Hot Dog</h3>
+            <p>American-style hot dog with mustard and ketchup.</p>
+            <span>$6.49</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Nachos</h3>
+            <p>Crispy nacho chips served with cheese sauce and jalapenos.</p>
+            <span>$7.99</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Pretzel</h3>
+            <p>Soft pretzel served with mustard dipping sauce.</p>
+            <span>$4.99</span>
+        </div>
+
+        <!-- Add more food items -->
+    </section>
+
+    <section class="drinks-menu">
+        <h2>Drinks Menu</h2><br>
+
+        <div class="menu-item">
+            <h3>Water</h3>
+            <p>Bottled water.</p>
+            <span>$2.00</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Coffee</h3>
+            <p>Hot brewed coffee.</p>
+            <span>$3.49</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Icee</h3>
+            <p>Refreshing frozen beverage in various flavors.</p>
+            <span>$4.29</span>
+        </div>
+
+        <div class="menu-item">
+            <h3>Beer</h3>
+            <p>Cold beer in cans or bottles.</p>
+            <span>$6.99</span>
+        </div>
+
+        <!-- Add more drink items -->
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h2>About Us</h2>
+                <p>Welcome to CinemaTickets.com! We're your go-to destination for booking movie tickets online.
+                    Explore the latest blockbusters, indie gems, and timeless classics. With convenient online
+                    booking and exceptional customer service, we make your movie experience unforgettable.</p>
+                <br>
+                <div class="footer-section branches">
+                    <h2>Branches</h2>
+                    <ul>
+                        <li>Beirut - Downtown</li>
+                        <li>Saida - Spot Mall</li>
+                        <li>Jbeil - Le Mall</li>
+                        <li>Tripoli - Azmi Street</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="footer-section follow-us">
+                <h2>Follow Us</h2>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <br><br><br>
+                <div>
+                    <div class="contact">
+                        <h2>Contact Us</h2>
+                        <span><i class="fas fa-phone"></i> 1-800-CINEMA</span>
+                        <span><i class="fas fa-envelope"></i> info@cinematickets.com</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 CinemaTickets.com | All rights reserved.
+        </div>
+    </footer>
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>

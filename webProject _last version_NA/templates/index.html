@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+    <title>Movie Design</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="navbar-container">
+          <div class="logo-container">
+            <h1 class="logo"><a href="{{ url_for('index') }}">Cinema</a></h1>
+          </div>
+          <div class="menu-container">
+            <ul class="menu-list">
+              <li class="menu-list-item">
+                <a href="{{ url_for('movies') }}">Movies</a>
+              </li>
+              <li class="menu-list-item">
+                <a href="{{ url_for('menu') }}">Menu</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="navbar-search">
+            <form action="{{ url_for('search') }}" method="GET">
+              <input type="text" name="query" placeholder="Search..." />
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+
+          <div class="profile-container">
+            <img class="profile-picture" src="/static/img/profile.jpg" alt="" />
+            <div class="profile-text-container">
+              <select onchange="redirectTo(this)">
+                <option value="settings">{{ user.Uname }}</option>
+                <option value="{{ url_for('profile') }}">Profile</option>
+                <option value="{{ url_for('logout') }}">Log Out</option>
+              </select>
+            </div>
+            <div class="toggle">
+              <i class="fas fa-moon toggle-icon"></i>
+              <i class="fas fa-sun toggle-icon"></i>
+              <div class="toggle-ball"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="content-container">
+        <div
+          class="featured-content"
+          style="
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #151515),
+              url('/static/img/f-1.jpg');
+          "
+        >
+          <img class="featured-title" src="/static/img/f-t-1.png" alt="" />
+          <p class="featured-desc">
+            Django Unchained is a 2012 American revisionist Western film written
+            and directed by Quentin Tarantino1. The movie tells the story of
+            Django, a slave who is freed by dentist-turned-bounty hunter Dr.
+            King Schultz. Django and Schultz join forces to find Django’s wife,
+            Broomhilda, and rescue her from Calvin Candie, the owner of the
+            Candyland plantation2. The movie stars Jamie Foxx, Christoph Waltz,
+            Leonardo DiCaprio, Kerry Washington, and Samuel L. Jackson.
+          </p>
+          <button class="featured-button">
+            <a href="{{ url_for('book') }}">Book</a>
+          </button>
+        </div>
+
+        <div class="movie-list-container">
+          <h1 class="movie-list-title">NEW RELEASES</h1>
+          <div class="movie-list-wrapper">
+            <div class="movie-list">
+              {% for movies in new_releases %}
+              <div class="movie-list-item">
+                <img
+                  class="movie-list-item-img"
+                  src="/static/img/{{ movies.fileInput }}"
+                  alt="{{ movies.movieName }}"
+                />
+                <span class="movie-list-item-title">{{ movies.movieName }}</span>
+                <p class="movie-list-item-desc">{{ movies.description }}</p>
+                <button class="movie-list-item-button">
+                  <a href="{{ url_for('book') }}">Book</a>
+                </button>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-list-container">
+          <h1 class="movie-list-title">Featured</h1>
+          <div class="movie-list-wrapper">
+            <div class="movie-list">
+              {% for movies in new_releases %}
+              <div class="movie-list-item">
+                <img
+                  class="movie-list-item-img"
+                  src="/static/img/{{ movies.fileInput }}"
+                  alt="{{ movies.movieName }}"
+                />
+                <span class="movie-list-item-title">{{ movies.movieName }}</span>
+                <p class="movie-list-item-desc">{{ movies.description }}</p>
+                <button class="movie-list-item-button">
+                  <a href="{{ url_for('book') }}">Book</a>
+                </button>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-list-container">
+          <h1 class="movie-list-title">Coming Soon</h1>
+          <div class="movie-list-wrapper">
+            <div class="movie-list">
+              {% for movies in new_releases %}
+              <div class="movie-list-item">
+                <img
+                  class="movie-list-item-img"
+                  src="/static/img/{{movies.fileInput }}"
+                  alt="{{ movies.movieName }}"
+                />
+                <span class="movie-list-item-title">{{ movies.movieName }}</span>
+                <p class="movie-list-item-desc">{{ movies.description }}</p>
+                <button class="movie-list-item-button">
+                  <a href="{{ url_for('book') }}">Book</a>
+                </button>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div class="footer-content">
+            <div class="footer-section about">
+              <h2>About Us</h2>
+              <p>
+                Welcome to CinemaTickets.com! We're your go-to destination for
+                booking movie tickets online. Explore the latest blockbusters,
+                indie gems, and timeless classics. With convenient online
+                booking and exceptional customer service, we make your movie
+                experience unforgettable.
+              </p>
+              <br />
+              <div class="footer-section branches">
+                <h2>Branches</h2>
+                <ul>
+                  <li>Beirut - Downtown</li>
+                  <li>Saida - Spot Mall</li>
+                  <li>Jbeil - Le Mall</li>
+                  <li>Tripoli - Azmi Street</li>
+                </ul>
+              </div>
+            </div>
+            <br />
+            <div class="footer-section follow-us">
+              <h2>Follow Us</h2>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+              </div>
+              <br /><br /><br />
+              <div>
+                <div class="contact">
+                  <h2>Contact Us</h2>
+                  <span><i class="fas fa-phone"></i> 1-800-CINEMA</span>
+                  <span
+                    ><i class="fas fa-envelope"></i>
+                    info@cinematickets.com</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            &copy; 2024 CinemaTickets.com | All rights reserved.
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+  </body>
+</html>

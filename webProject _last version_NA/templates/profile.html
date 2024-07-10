@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+
+ 
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="navbar-container">
+                <div class="logo-container">
+                    <h1 class="logo"><a href="{{ url_for('index') }}">Cinema</a></h1>
+                </div>
+                <div class="menu-container">
+                    <ul class="menu-list">
+                        <li class="menu-list-item"><a href="{{ url_for('movies') }}">Movies</a></li>
+                        <li class="menu-list-item"><a href="{{ url_for('menu') }}">Menu</a></li>
+                    </ul>
+                </div>
+
+                <div class="navbar-search">
+                    <input type="text" placeholder="Search...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="profile-container">
+                    <img class="profile-picture" src="/static/img/profile.jpg" alt="">
+                    <div class="profile-text-container">
+                        <select onchange="redirectTo(this)">
+                            <option value="settings">{{ user.Uname }}</option>
+                            <option value="{{ url_for('profile') }}">Profile</option>
+                            <option value="{{ url_for('logout') }}">Log Out</option>
+                        </select>
+
+                    </div>
+                    <div class="toggle">
+                        <i class="fas fa-moon toggle-icon"></i>
+                        <i class="fas fa-sun toggle-icon"></i>
+                        <div class="toggle-ball"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-container2">
+            <div class="profile-picture-container">
+                <img class="profile-picturep" src="/static/img/profile.jpg" alt="Profile Picture">
+            </div>
+            <div class="profile-info-container">
+                <h1 class="profile-name">{{ user.Uname }}</h1>
+                <p class="profile-username">{{ user.username }}</p>
+                <p class="profile-email">{{ user.email }}</p>
+                <p class="profile-dob">{{ user.dob }}</p>
+                <button class="edit-profile-button" onclick="openProfilePopup()">Edit Profile</button>
+            </div>
+
+        </div>
+
+        <div class="movie-list-container">
+            <h1 class="movie-list-title">History of Booking</h1>
+            <div class="movie-list-wrapper">
+                <div class="movie-list">
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/1.jpeg" alt="">
+                        <span class="movie-list-item-title">Her</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/2.jpeg" alt="">
+                        <span class="movie-list-item-title">Star Wars</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/3.jpg" alt="">
+                        <span class="movie-list-item-title">Storm</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/4.jpg" alt="">
+                        <span class="movie-list-item-title">1917</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/5.jpg" alt="">
+                        <span class="movie-list-item-title">Avengers</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/6.jpg" alt="">
+                        <span class="movie-list-item-title">Her</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                    <div class="movie-list-item">
+                        <img class="movie-list-item-img" src="/static/img/7.jpg" alt="">
+                        <span class="movie-list-item-title">Her</span>
+                        <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                            hic fugit similique accusantium.</p>
+                        <button class="movie-list-item-button">Booking Info</button>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+        </div>
+
+        <div id="popupProfile" class="popupProfile">
+            <h2>Edit Profile</h2>
+            <form action="/editProfile" , method="post">
+              <div class="form-group">
+                <label for="profile-name">Name</label>
+                <input type="text" id="profile-name" name="profile-name" value="{{ user.Uname }}">
+              </div>
+              <div class="form-group">
+                <label for="profile-username">Username</label>
+                <input type="text" id="profile-username" name="profile-username" value="{{ user.username }}" readonly >
+              </div>
+              <div class="form-group">
+                <label for="profile-email">Email</label>
+                <input type="email" id="profile-email" name="profile-email" value="{{ user.email }}" >
+              </div>
+              <div class="form-group">
+                <label for="profile-dob">Date of Birth</label>
+                <input type="date" id="profile-dob" name="profile-dob" value="{{ user.dob }}" >
+              </div>
+              <button type="button" onclick="closeProfilePopup()">Cancel</button>
+              <button type="submit">Save</button>
+            </form>
+          </div>
+
+        <div class="security-section">
+            <div class="security-title">
+                <h2 class="section-title">Security Settings</h2>
+            </div>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <div id="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                     {% endif %}
+                 {% endwith %}
+
+            <div class="security-options">
+                <!-- Password change form -->
+                <div class="changePasswords">
+                    <form class="password-form"  action="/changePassforUser" method ="post">
+                        
+                        <h3>Change password:</h3><br>
+                        <div class="form-group">
+                            <label for="current-password">Current Password:</label>
+                            <input type="password" id="current-password" name="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-password" name="confirm-password">
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+        
+
+                <!-- Admin section only -->
+                 {% if user.role == 'Admin' %}
+                <div class="changeAdminPass">
+                    <form class="change-other-password-form" action="/changePassforAdmin" method ="post">
+                        
+                        <h3>Change Password for Other Account (Admin): </h3>
+                        <div class="form-group">
+                            <label for="other-username">Username:</label>
+                            <input type="text" id="other-username" name="other-username" >
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-password" name="confirm-password">
+                        </div>
+                        
+                        <button type="submit">Change Password</button>
+                    </form>
+                </div>
+
+                <div class="changeRole">
+                    <form class="password-form" action="/changeRole" method ="post">  <!-- 3tayta class pass krml ma karer css -->
+                        <h3>Change Role of Other Account (Admin): </h3><br>
+                        <div class="form-group">
+                            <label for="other-username">Username:</label>
+                            <input type="text" id="other-username" name="other-username">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">New Role:</label>
+                            <input type="radio" name="role" value="Admin" id="role" > Admin
+                            <input type="radio" name="role" value="User" id = "role" checked> User
+                        </div>
+                       
+                        
+                        <button type="submit">Change Role</button>
+                    </form>
+                </div>
+
+                <div class="delete user">
+                    <form class="password-form" action="/deleteUser" method ="post">  <!-- 3tayta class pass krml ma karer css -->
+                        <h3>Delete User (Admin): </h3><br>
+                        <div class="form-group">
+                            <label for="other-username">Username:</label>
+                            <input type="text" id="other-username" name="other-username">
+                        </div>
+                        <button type="submit" id="dUserB">Delete</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+        
+
+
+
+
+
+       
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h2>About Us</h2>
+                    <p>Welcome to CinemaTickets.com! We're your go-to destination for booking movie tickets online.
+                        Explore the latest blockbusters, indie gems, and timeless classics. With convenient online
+                        booking and exceptional customer service, we make your movie experience unforgettable.</p>
+                    <br>
+                    <div class="footer-section branches">
+                        <h2>Branches</h2>
+                        <ul>
+                            <li>Beirut - Downtown</li>
+                            <li>Saida - Spot Mall</li>
+                            <li>Jbeil - Le Mall</li>
+                            <li>Tripoli - Azmi Street</li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <div class="footer-section follow-us">
+                    <h2>Follow Us</h2>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <br><br><br>
+                    <div>
+                        <div class="contact">
+                            <h2>Contact Us</h2>
+                            <span><i class="fas fa-phone"></i> 1-800-CINEMA</span>
+                            <span><i class="fas fa-envelope"></i> info@cinematickets.com</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 CinemaTickets.com | All rights reserved.
+            </div>
+        </footer>
+</body>
+<script src="/static/js/script.js"></script>
+</main>
+
+
+</html>

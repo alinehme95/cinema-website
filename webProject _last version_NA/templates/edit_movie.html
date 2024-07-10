@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customized Movie Form</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="custom-blur"></div>
+  <div id="custom-form-container">
+    <div id="custom-popup">
+      <h2>Add New Movie</h2>
+      <form id="custom-movie-form" method="POST" >
+        <div class="custom-center">
+          <div>
+            <label class="custom-file-upload" for="custom-fileInput">Choose File:</label>
+            <input type="file" id="custom-fileInput" name="custom-fileInput" onchange="displayFileName(this)">
+          </div>
+          <div></div>
+          <label for="custom-movie-name">Movie Name:</label>
+          <input type="text" id="custom-movie-name" name="custom-movie-name" value="{{ movie.movieName }}" required />
+        </div>
+        <div>
+          <label for="custom-start-date">Start Date:</label>
+          <input type="date" id="custom-start-date" name="custom-start-date" value="{{ movie.startDate }}" required />
+        </div>
+        <div>
+          <label for="custom-end-date">End Date:</label>
+          <input type="date" id="custom-end-date" name="custom-end-date" value="{{ movie.endDate }}" required />
+        </div>
+        <div>
+          <label for="custom-cinema-branch">Cinema Branch:</label>
+          <select id="custom-cinema-branch" name="custom-cinema-branch" required>
+            <option value="no_choice" {% if movie.cinemaBranch == 'no_choice' %}selected{% endif %}>No choice selected</option>
+            <option value="Beirut_Downtown" {% if movie.cinemaBranch == 'Beirut_Downtown' %}selected{% endif %}>Beirut - Downtown</option>
+            <option value="Saida_Spot_Mall" {% if movie.cinemaBranch == 'Saida_Spot_Mall' %}selected{% endif %}>Saida - Spot Mall</option>
+            <option value="Jbeil_Le_Mall" {% if movie.cinemaBranch == 'Jbeil_Le_Mall' %}selected{% endif %}>Jbeil - Le Mall</option>
+            <option value="Tripoli_Azmi_Street" {% if movie.cinemaBranch == 'Tripoli_Azmi_Street' %}selected{% endif %}>Tripoli - Azmi Street</option>
+          </select>
+        </div>
+        <div>
+          <label for="custom-movie-time">Movie Time:</label>
+          <input type="time" id="custom-movie-time" name="custom-movie-time" value="{{ movie.movieTime }}" required />
+        </div>
+        <div>
+          <label for="custom-room">Room:</label>
+          <input type="text" id="custom-room" name="custom-room" value="{{ movie.room }}" required />
+        </div>
+        <div>
+          <label for="custom-duration">Duration (in minutes):</label>
+          <input type="number" id="custom-duration" name="custom-duration" value="{{ movie.duration }}" required />
+        </div>
+        <div>
+          <label for="custom-description">Description:</label>
+          <textarea id="custom-myTextarea" name="custom-description" rows="4" cols="50" placeholder="Enter your text here...">{{ movie.description }}</textarea>
+        </div>
+        <div>
+          <button type="submit">Save</button>
+          <button type="button" onclick="window.location.href='{{ url_for('movies') }}'">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

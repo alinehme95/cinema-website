@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <h1>Search Results for "{{ query }}"</h1>
+      {% if search_results %}
+      <div class="film-grid">
+        {% for movie in search_results %}
+        <div class="film-card">
+          <img
+            class="film-card-img"
+            src="/static/img/{{ movie.fileInput }}"
+            alt="{{ movie.movieName }}"
+          />
+          <span class="film-card-title">{{ movie.movieName }}</span>
+          <p class="film-card-desc">{{ movie.description }}</p>
+          <button class="film-card-button">
+            <a href="{{ url_for('book') }}">Book</a>
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>No results found for "{{ query }}".</p>
+      {% endif %}
+      <button
+        onclick="window.location.href='{{ url_for('index') }}'"
+        class="back-button"
+      >
+        Back
+      </button>
+    </div>
+  </body>
+</html>
